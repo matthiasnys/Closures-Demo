@@ -9,17 +9,26 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        setup()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    private func setup() {
+        title = "Initial"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton))
     }
-
-
+    
+    @objc private func didTapAddButton() {
+        // ->
+        
+        let buttonViewController = ButtonViewController()
+        buttonViewController.completion = { [weak self] message in
+            self?.dismiss(animated: true, completion: {
+                print(message)
+            })
+        }
+        present(buttonViewController, animated: true, completion: nil)
+    }
 }
 
